@@ -2,37 +2,13 @@ create database fdb2020
 
 create table empregado (
 	enome text,
-	cpf varchar(11),
+	cpf varchar(11) primary key,
 	endereco text,
 	nasc date,
 	sexo varchar(1),
-	salario float check salario > 1100,
-	chefe bigint references empregado(cpf),
-	cdep bigint references departamento(codigo)
-)
-
-create table departamento (
-	dnome text,
-	codigo bigint,
-	gerente bigint references empregado(cpf)
-)
-
-create table projeto (
-	pnome text,
-	pcodigo text,
-	cidade text,
-	cdep bigint references departamento(codigo)
-)
-
-create table tarefa (
-	cpf bigint references empregado(cpf),
-	pcodigo text,
-	horas float
-)
-
-create table dunidade (
-	dcodigo bigint references departamento(codigo),
-	dcidade text
+	salario float check (salario > 1100),
+	chefe varchar(11) references empregado(cpf),
+	cdep bigint
 )
 
 insert into empregado (enome,cpf,endereco,nasc,sexo,salario,chefe,cdep) values
@@ -43,10 +19,39 @@ insert into empregado (enome,cpf,endereco,nasc,sexo,salario,chefe,cdep) values
 ('Zulmira','3456','rua 5, 5','06/06/66','F',12000.00,8765,3),
 ('Zefinha','6543','rua 6, 6','07/07/67','F',10000.00,8765,2)
 
+create table departamento (
+	dnome text,
+	codigo bigint primary key,
+	gerente varchar(11) references empregado(cpf)
+)
+
 insert into departamento (dnome,codigo,gerente) values
 ('Pesquisa',3,1234),
 ('Marketing',2,6543),
 ('Administracao',4,8765)
+
+ALTER TABLE empregado ADD CONSTRAINT chefefk FOREIGN KEY (chefe) REFERENCES empregado (cpf);
+ALTER TABLE empregado ADD CONSTRAINT cdepfk FOREIGN KEY (cdep) REFERENCES departamento (codigo);
+
+create table projeto (
+	pnome text,
+	pcodigo text primary key,
+	cidade text,
+	cdep bigint references departamento(codigo)
+)
+
+create table tarefa (
+	cpf varchar(11) references empregado(cpf),
+	pcodigo text,
+	horas float,
+	primary key (cpf,pcodigo)
+)
+
+create table dunidade (
+	dcodigo bigint references departamento(codigo),
+	dcidade text,
+	primary key (dcodigo,dcidade)
+)
 
 insert into projeto (pnome,pcodigo,cidade,cdep) values
 ('ProdutoA','PA','Cumbuco',3),
@@ -67,7 +72,7 @@ insert into tarefa (cpf,pcodigo,horas) values
 (3456,'Div',5.0),
 (6543,'PB',40.0)
 
-insert into dunidade (dcodigo,dcidade) values (),
+insert into dunidade (dcodigo,dcidade) values
 (2,'Morro Branco'),
 (3,'Cumbuco'),
 (3,'Prainha'),
