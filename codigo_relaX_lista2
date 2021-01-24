@@ -1,0 +1,34 @@
+-- Questão 1
+π empregado.enome,empregado.salario (empregado ⨝ (empregado.cdep = departamento.codigo) ∧ (departamento.dnome = 'Marketing') departamento)
+-- Questão 2
+(π empregado.cpf (empregado ⨝ (empregado.cdep = departamento.codigo) ∧ (departamento.dnome = 'Pesquisa') departamento))
+∪
+(π empregado.cpf (empregado ⨝ (empregado.cpf = x.chefe) (ρ x (π empregado.chefe (empregado ⨝ (empregado.cdep = departamento.codigo) ∧ (departamento.dnome = 'Pesquisa') departamento)))))
+-- Questão 3
+π projeto.pnome,projeto.cidade (
+	projeto ⨝ projeto.pcodigo = x.pcodigo (
+		ρ x (
+			π tarefa.pcodigo (
+				empregado ⨝ (
+					empregado.cpf = tarefa.cpf ∧ tarefa.horas > 30
+				) tarefa
+			)
+		)
+	)
+)
+-- Questão 4
+π empregado.enome,empregado.nasc (empregado ⨝ (empregado.cpf = departamento.gerente) (π departamento.gerente departamento))
+-- Questão 5
+π empregado.enome,empregado.endereco (empregado ⨝ (empregado.cdep = departamento.codigo) ∧ (departamento.dnome = 'Pesquisa') departamento)
+-- Questão 6
+π projeto.pcodigo,departamento.dnome,empregado.enome (
+	empregado ⨝ empregado.cpf = departamento.gerente (
+			(
+				departamento ⨝ departamento.codigo = projeto.cdep (
+					σ projeto.cidade = 'Icapui' (projeto)
+				)
+			)
+	)
+)
+-- Questão 7
+π empregado.enome,empregado.sexo (empregado ⨝ empregado.cpf = x.cpf (ρ x (((π cpf empregado) - (π gerente departamento)))))

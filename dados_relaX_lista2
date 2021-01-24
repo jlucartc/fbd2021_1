@@ -1,0 +1,52 @@
+-- this is an example
+group: lista2
+
+departamento = {
+	dnome:string,codigo:string,gerente:string
+	'Pesquisa',3,1234
+	'Marketing',2,6543
+	'Administracao',4,8765
+}
+
+dunidade = {
+	dcodigo:string,dcidade:string
+	2,'Morro Branco'
+	3,'Cumbuco'
+	3,'Prainha'
+	3,'Taiba'
+	3,'Icapui'
+	4,'Fortaleza'
+}
+
+empregado = {
+	enome:string,cpf:string,endereco:string,nasc:string,sexo:string,salario:number,chefe:string,cdep:string
+	Chiquin,1234,'rua 1, 1','2062-02-02','M',10000,8765,3
+	Helenita,4321,'rua 2, 2','2063-03-03','F',12000,6543,2
+	Pedrin,5678,'rua 3, 3','2064-04-04','M',9000,6543,2
+	Valtin,8765,'rua 4, 4','2065-05-05','M',15000,'',4
+	Zulmira,3456,'rua 5, 5','2066-06-06','F',12000,8765,3
+	Zefinha,6543,'rua 6, 6','2067-07-07','F',10000,8765,2
+}
+
+projeto = {
+	pnome:string,pcodigo:string,cidade:string,cdep:string
+	'ProdutoA','PA','Cumbuco',3
+	'ProdutoB','PB','Icapui',3
+	'Informatizacao','Inf','Fortaleza',4
+	'Divulgacao','Div','Morro Branco',2
+}
+
+tarefa = {
+	cpf:string,pcodigo:string,horas:number
+	'1234','PA',30
+	'1234','PB',10
+	'4321','PA',5
+	'4321','Div',35
+	'5678','Div',40
+	'8765','Inf',32
+	'8765','Div',8
+	'3456','PA',10
+	'3456','PB',25
+	'3456','Div',5
+	'6543','PB',40
+}
